@@ -30,7 +30,10 @@ RUN wget https://openresty.org/download/ngx_openresty-1.9.15.1.tar.gz \
     && wget http://luajit.org/download/LuaJIT-2.1.0-beta1.tar.gz \
     && tar xfz LuaJIT-2.1.0-beta1.tar.gz \
     && wget https://keplerproject.github.io/luarocks/releases/luarocks-2.2.2.tar.gz \
-    && tar xfz luarocks-2.2.2.tar.gz
+    && tar xfz luarocks-2.2.2.tar.gz \
+    && wget https://github.com/newobj/nginx-x-rid-header/archive/master.tar.gz -O nginx-x-rid-header.tar.gz \
+    && tar xfz nginx-x-rid-header.tar.gz
+
 
 
 # Compile and install openresty
@@ -38,9 +41,16 @@ RUN cd /build/openresty-1.9.15.1 \
     && rm -rf bundle/LuaJIT* \
     && mv /build/LuaJIT-2.1.0-beta1 bundle/ \
     && ./configure \
+        --with-ipv6 \
+        --with-http_auth_request_module \
+        --with-http_realip_module \
+        --with-http_addition_module \
+        --with-http_gunzip_module \
         --with-http_ssl_module \
+        --with-http_v2_module
         --with-http_stub_status_module \
         --with-http_gzip_static_module \
+        --with-http_secure_link_module
         --with-debug \
         --with-openssl=/build/openssl-1.0.2h \
         --with-pcre=/build/pcre-8.38 \
@@ -48,6 +58,7 @@ RUN cd /build/openresty-1.9.15.1 \
         --with-zlib=/build/zlib-1.2.8 \
         --with-cc-opt='-O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2' \
         --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro' \
+        --add-module=/build/nginx-x-rid-header-master
         --prefix=/usr/share/nginx \
         --sbin-path=/usr/sbin/nginx \
         --conf-path=/etc/nginx/nginx.conf \
@@ -62,6 +73,8 @@ RUN cd /build/openresty-1.9.15.1 \
         --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
         --user=www-data \
         --group=www-data \
+        --with-file-aio \
+        --with-threads
     && make -j4 \
     && make install DESTDIR=/build/root
 
@@ -104,7 +117,7 @@ RUN cd /build/root \
 # Build deb
 RUN fpm -s dir -t deb \
     -n openresty \
-    -v 1.9.15.1~allprogrammic+1.0 \
+    -v 1.9.15.1~allprogrammic+1.1 \
     -C /build/root \
     -p openresty_VERSION_ARCH.deb \
     --description 'a high performance web server and a reverse proxy server' \
