@@ -47,10 +47,10 @@ RUN cd /build/openresty-1.9.15.1 \
         --with-http_addition_module \
         --with-http_gunzip_module \
         --with-http_ssl_module \
-        --with-http_v2_module
+        --with-http_v2_module \
         --with-http_stub_status_module \
         --with-http_gzip_static_module \
-        --with-http_secure_link_module
+        --with-http_secure_link_module \
         --with-debug \
         --with-openssl=/build/openssl-1.0.2h \
         --with-pcre=/build/pcre-8.38 \
