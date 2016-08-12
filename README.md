@@ -1,5 +1,5 @@
 # openresty-debian
-Builds a deb package for OpenResty 1.9.3.1 w/ ssl-cert-by-lua branch of lua-nginx-module
+Builds a deb package for OpenResty 1.9.15.1
 
 ##Notes
 

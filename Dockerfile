@@ -104,13 +104,13 @@ RUN cd /build/root \
 # Build deb
 RUN fpm -s dir -t deb \
     -n openresty \
-    -v 1.9.15.1-tapstream1 \
+    -v 1.9.15.1~allprogrammic+1.0 \
     -C /build/root \
     -p openresty_VERSION_ARCH.deb \
     --description 'a high performance web server and a reverse proxy server' \
     --url 'http://openresty.org/' \
     --category httpd \
-    --maintainer 'Nick Sitarz <nick@tapstream.com>' \
+    --maintainer 'William Pottier <wpottier@allprogrammic.com>' \
     --depends wget \
     --depends unzip \
     --depends libncurses5 \

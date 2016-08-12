@@ -1,10 +1,10 @@
 #! /bin/bash
 set -eux
 
-docker build -t tapstream/openresty-bundle-deb .
-CONTAINER=$(docker create tapstream/openresty-bundle-deb)
+docker build -t allprogrammic/openresty-bundle-deb .
+CONTAINER=$(docker create allprogrammic/openresty-bundle-deb)
 if [ ! -d ./artifacts ]; then
     mkdir ./artifacts
 fi
-docker cp $CONTAINER:/build/openresty_1.9.15.1-tapstream1_amd64.deb ./artifacts/
+docker cp $CONTAINER:/build/openresty_1.9.15.1~allprogrammic+1.0_amd64.deb ./artifacts/
 docker rm $CONTAINER
