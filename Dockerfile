@@ -21,8 +21,8 @@ RUN wget https://openresty.org/download/ngx_openresty-1.9.15.1.tar.gz \
     && tar xfz ngx_openresty-1.9.15.1.tar.gz \
     && wget https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz -O ngx_devel_kit-0.3.0.tar.gz \
     && tar xfz ngx_devel_kit-0.3.0.tar.gz \
-    && wget https://www.openssl.org/source/openssl-1.0.2d.tar.gz \
-    && tar xfz openssl-1.0.2d.tar.gz \
+    && wget https://www.openssl.org/source/openssl-1.0.2h.tar.gz \
+    && tar xfz openssl-1.0.2h.tar.gz \
     && wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.gz \
     && tar xfz pcre-8.37.tar.gz \
     && wget http://zlib.net/zlib-1.2.8.tar.gz \
@@ -42,7 +42,7 @@ RUN cd /build/ngx_openresty-1.9.15.1 \
         --with-http_stub_status_module \
         --with-http_gzip_static_module \
         --with-debug \
-        --with-openssl=/build/openssl-1.0.2d \
+        --with-openssl=/build/openssl-1.0.2h \
         --with-pcre=/build/pcre-8.37 \
         --with-pcre-jit \
         --with-zlib=/build/zlib-1.2.8 \
