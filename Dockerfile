@@ -57,8 +57,7 @@ RUN cd /build/openresty-1.9.15.1 \
         --with-pcre-jit \
         --with-zlib=/build/zlib-1.2.8 \
         --with-cc-opt='-O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2' \
-        --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro' \
-        --with-ld-opt=-lossp-uuid \
+        --with-ld-opt='-lossp-uuid -Wl,-Bsymbolic-functions -Wl,-z,relro' \
         --add-module=/build/nginx-x-rid-header-master \
         --prefix=/usr/share/nginx \
         --sbin-path=/usr/sbin/nginx \
