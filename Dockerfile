@@ -74,7 +74,7 @@ RUN cd /build/openresty-1.9.15.1 \
         --user=www-data \
         --group=www-data \
         --with-file-aio \
-        --with-threads
+        --with-threads \
     && make -j4 \
     && make install DESTDIR=/build/root
 
