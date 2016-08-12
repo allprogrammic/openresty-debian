@@ -34,7 +34,7 @@ RUN wget https://openresty.org/download/ngx_openresty-1.9.15.1.tar.gz \
 
 
 # Compile and install openresty
-RUN cd /build/ngx_openresty-1.9.15.1 \
+RUN cd /build/openresty-1.9.15.1 \
     && rm -rf bundle/LuaJIT* \
     && mv /build/LuaJIT-2.1.0-beta1 bundle/ \
     && ./configure \
