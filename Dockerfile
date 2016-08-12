@@ -17,12 +17,10 @@ RUN mkdir /build /build/root
 WORKDIR /build
 
 # Download packages
-RUN wget https://openresty.org/download/ngx_openresty-1.9.3.1.tar.gz \
-    && tar xfz ngx_openresty-1.9.3.1.tar.gz \
-    && wget https://github.com/openresty/lua-nginx-module/archive/ssl-cert-by-lua.zip \
-    && unzip ssl-cert-by-lua.zip \
-    && wget https://github.com/simpl/ngx_devel_kit/archive/v0.2.19.tar.gz -O ngx_devel_kit-0.2.19.tar.gz \
-    && tar xfz ngx_devel_kit-0.2.19.tar.gz \
+RUN wget https://openresty.org/download/ngx_openresty-1.9.15.1.tar.gz \
+    && tar xfz ngx_openresty-1.9.15.1.tar.gz \
+    && wget https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz -O ngx_devel_kit-0.3.0.tar.gz \
+    && tar xfz ngx_devel_kit-0.3.0.tar.gz \
     && wget https://www.openssl.org/source/openssl-1.0.2d.tar.gz \
     && tar xfz openssl-1.0.2d.tar.gz \
     && wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.gz \
@@ -36,12 +34,9 @@ RUN wget https://openresty.org/download/ngx_openresty-1.9.3.1.tar.gz \
 
 
 # Compile and install openresty
-RUN cd /build/ngx_openresty-1.9.3.1 \
+RUN cd /build/ngx_openresty-1.9.15.1 \
     && rm -rf bundle/LuaJIT* \
     && mv /build/LuaJIT-2.1.0-beta1 bundle/ \
-    && rm -rf bundle/ngx_lua-* \
-    && mv /build/lua-nginx-module-ssl-cert-by-lua bundle/ngx_lua-0.9.16 \
-    && patch -p1 -d bundle/nginx-1.9.3 < bundle/ngx_lua-0.9.16/patches/nginx-ssl-cert.patch \
     && ./configure \
         --with-http_ssl_module \
         --with-http_stub_status_module \
@@ -98,7 +93,6 @@ RUN cd /build/root \
         var/lib/nginx \
     && mv usr/share/nginx/bin/resty usr/sbin/resty && rm -rf usr/share/nginx/bin \
     && mv usr/share/nginx/nginx/html usr/share/nginx/html && rm -rf usr/share/nginx/nginx \
-    && cp -R /build/ngx_openresty-1.9.3.1/bundle/ngx_lua-0.9.16/lua/ngx usr/share/nginx/lualib \
     && rm etc/nginx/*.default \
     && cp /build/nginx-scripts/init etc/init.d/nginx \
     && chmod +x etc/init.d/nginx \
