@@ -17,8 +17,8 @@ RUN mkdir /build /build/root
 WORKDIR /build
 
 # Download packages
-RUN wget https://openresty.org/download/ngx_openresty-1.9.15.1.tar.gz \
-    && tar xfz ngx_openresty-1.9.15.1.tar.gz \
+RUN wget https://openresty.org/download/openresty-1.11.2.2.tar.gz \
+    && tar xfz openresty-1.11.2.2.tar.gz \
     && wget https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz -O ngx_devel_kit-0.3.0.tar.gz \
     && tar xfz ngx_devel_kit-0.3.0.tar.gz \
     && wget https://www.openssl.org/source/openssl-1.0.2h.tar.gz \
@@ -34,12 +34,11 @@ RUN wget https://openresty.org/download/ngx_openresty-1.9.15.1.tar.gz \
     && wget https://github.com/newobj/nginx-x-rid-header/archive/master.tar.gz -O nginx-x-rid-header.tar.gz \
     && tar xfz nginx-x-rid-header.tar.gz
 
-
-
 # Compile and install openresty
-RUN cd /build/openresty-1.9.15.1 \
+RUN cd /build/openresty-1.11.2.2 \
     && rm -rf bundle/LuaJIT* \
     && mv /build/LuaJIT-2.1.0-beta1 bundle/ \
+    && rm -rf bundle/ngx_lua-* \
     && ./configure \
         --with-ipv6 \
         --with-http_auth_request_module \
@@ -116,7 +115,7 @@ RUN cd /build/root \
 # Build deb
 RUN fpm -s dir -t deb \
     -n openresty \
-    -v 1.9.15.1~allprogrammic+1.1 \
+    -v 1.11.2.2-tapstream1 \
     -C /build/root \
     -p openresty_VERSION_ARCH.deb \
     --description 'a high performance web server and a reverse proxy server' \
