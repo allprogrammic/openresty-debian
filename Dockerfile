@@ -38,7 +38,6 @@ RUN wget https://openresty.org/download/openresty-1.11.2.2.tar.gz \
 RUN cd /build/openresty-1.11.2.2 \
     && rm -rf bundle/LuaJIT* \
     && mv /build/LuaJIT-2.1.0-beta1 bundle/ \
-    && rm -rf bundle/ngx_lua-* \
     && ./configure \
         --with-ipv6 \
         --with-http_auth_request_module \
