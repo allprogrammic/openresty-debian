@@ -101,7 +101,7 @@ RUN cd /build/root \
         etc/nginx/sites-enabled \
         var/lib \
         var/lib/nginx \
-    && mv usr/share/nginx/bin/opm usr/sbin/opm && mv usr/share/nginx/bin/resty usr/sbin/resty && rm -rf usr/share/nginx/bin \
+    && ln -s usr/share/nginx/bin/opm usr/sbin/opm && ln -s usr/share/nginx/bin/resty usr/sbin/resty
     && mv usr/share/nginx/nginx/html usr/share/nginx/html && rm -rf usr/share/nginx/nginx \
     && rm etc/nginx/*.default \
     && cp /build/nginx-scripts/init etc/init.d/nginx \
@@ -114,7 +114,7 @@ RUN cd /build/root \
 # Build deb
 RUN fpm -s dir -t deb \
     -n openresty \
-    -v 1.11.2.2-1-tapstream1 \
+    -v 1.11.2.2-2-tapstream1 \
     -C /build/root \
     -p openresty_VERSION_ARCH.deb \
     --description 'a high performance web server and a reverse proxy server' \
