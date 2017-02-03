@@ -114,7 +114,7 @@ RUN cd /build/root \
 # Build deb
 RUN fpm -s dir -t deb \
     -n openresty \
-    -v 1.11.2.2-2-tapstream1 \
+    -v 1.11.2.2-3-tapstream1 \
     -C /build/root \
     -p openresty_VERSION_ARCH.deb \
     --description 'a high performance web server and a reverse proxy server' \
