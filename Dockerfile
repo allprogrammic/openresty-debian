@@ -101,7 +101,7 @@ RUN cd /build/root \
         etc/nginx/sites-enabled \
         var/lib \
         var/lib/nginx \
-    && ln -s usr/share/nginx/bin/opm usr/sbin/opm && ln -s usr/share/nginx/bin/resty usr/sbin/resty \
+    && cd usr/sbin && ln -s ../share/nginx/bin/opm && ln -s ../share/nginx/bin/resty && cd /build/root \
     && mv usr/share/nginx/nginx/html usr/share/nginx/html && rm -rf usr/share/nginx/nginx \
     && rm etc/nginx/*.default \
     && cp /build/nginx-scripts/init etc/init.d/nginx \
