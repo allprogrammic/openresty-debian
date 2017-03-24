@@ -33,6 +33,8 @@ RUN wget https://openresty.org/download/openresty-1.11.2.2.tar.gz \
     && tar xfz luarocks-2.2.2.tar.gz \
     && wget https://github.com/newobj/nginx-x-rid-header/archive/master.tar.gz -O nginx-x-rid-header.tar.gz \
     && tar xfz nginx-x-rid-header.tar.gz
+    && wget https://github.com/nbs-system/naxsi/archive/naxsi-0.55.3.tar.gz
+    && tar xvzf naxsi-0.55.3.tar.gz
 
 # Compile and install openresty
 RUN cd /build/openresty-1.11.2.2 \
@@ -40,6 +42,7 @@ RUN cd /build/openresty-1.11.2.2 \
     && mv /build/LuaJIT-2.1.0-beta1 bundle/ \
     && ./configure \
         --with-ipv6 \
+        --add-module=../naxsi-0.55.3/naxsi_src/
         --with-http_auth_request_module \
         --with-http_realip_module \
         --with-http_addition_module \
@@ -137,4 +140,3 @@ RUN fpm -s dir -t deb \
     --after-remove nginx-scripts/postremove \
     --before-remove nginx-scripts/preremove \
     etc run usr var
-
